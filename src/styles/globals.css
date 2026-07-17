@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+@theme {
+  /* Define your custom colors using CSS custom variables */
+  --color-ink: #0A0A0A;
+  --color-surface: #0F1211;
+  
+  --color-teal: #1D9E75;
+  --color-teal-dim: #0F6E56;
+
+  /* Custom font mapping */
+  --font-sans: "Inter", "system-ui", "sans-serif";
+}
+
+body {
+  background-color: var(--color-ink);
+  color: var(--color-white);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
