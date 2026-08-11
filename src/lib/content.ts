@@ -10,12 +10,23 @@ export interface CaseStudy {
   tagline: string;
   stack: string[];
   description: string;
+  liveUrl?: string;   
+  githubUrl?: string;
 }
 
 export interface ProcessStep {
   step: string;
   title: string;
   description: string;
+}
+
+
+export interface Product {
+  name: string;
+  tagline: string;
+  description: string;
+  status: 'Live' | 'Beta' | 'In Development';
+  link?: string;
 }
 
 export const services: Service[] = [
@@ -45,12 +56,14 @@ export const caseStudies: CaseStudy[] = [
       'JWT + rotating refresh tokens',
       'Redis rate limiting',
       'Meta WhatsApp Business API',
-      'Africa\u2019s Talking SMS',
+      'Africa’s Talking SMS',
       'Cloudinary',
       'React / TypeScript / Vite',
     ],
     description:
       'A B2B SaaS platform giving merchant clients live visibility into their shipments, built with encrypted document handling and automated status notifications over WhatsApp and SMS.',
+      liveUrl: 'https://manifest-hq.vercel.app/', 
+      githubUrl: 'https://github.com/infralabs-studio/ManifestHQ-backend', // Replace with real URL (or delete if private)
   },
   {
     name: 'NEXUS',
@@ -64,6 +77,7 @@ export const caseStudies: CaseStudy[] = [
     ],
     description:
       'A production-deployed personal assistant system with a central FastAPI brain coordinating Android and Windows client spokes.',
+      githubUrl: 'https://github.com/infralabs-studio/nexus',
   },
   {
     name: 'Sheria Flow',
@@ -75,6 +89,7 @@ export const caseStudies: CaseStudy[] = [
     ],
     description:
       'A comprehensive payroll system designed to handle payroll processing from end to end for companies and businesses, streamlining compliance and financial operations.',
+      liveUrl: 'https://sheriaflow-web.vercel.app/',
   },
 ];
 
@@ -94,4 +109,28 @@ export const processSteps: ProcessStep[] = [
     title: 'Ship', 
     description: 'Deployed to real infrastructure — monitored, documented, handed off cleanly.' 
   },
+];
+
+
+export const products: Product[] = [
+  {
+    name: "Systema",
+    tagline: "Core Operations Platform",
+    description: "A complete internal operating system for service businesses. Handles invoicing, client portals, and automated workflow triggers in a single unified dashboard.",
+    status: "Live",
+    link: "#"
+  },
+  {
+    name: "WebFlow Engine",
+    tagline: "Headless CMS Bridge",
+    description: "An API middleware layer that connects static frontends to dynamic databases, allowing marketing teams to update content without touching the codebase.",
+    status: "Beta",
+    link: "#"
+  },
+  {
+    name: "MetricSync",
+    tagline: "Real-time Analytics Dashboard",
+    description: "Aggregates data from Stripe, Google Analytics, and custom PostgreSQL databases into a single, real-time executive dashboard.",
+    status: "In Development"
+  }
 ];

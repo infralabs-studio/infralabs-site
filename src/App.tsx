@@ -30,7 +30,7 @@ export default function App() {
       <Nav />
       <main className="flex-1">
         <Hero />
-        <WhatWeDo />
+        <WhatWeDo /> 
         <ProofOfWork />
         <HowWeWork />
         <StudioModel />
