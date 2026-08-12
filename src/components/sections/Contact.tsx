@@ -2,7 +2,6 @@
 import { Container } from '../layout/Container';
 import { FadeIn } from '../ui/FadeIn';
 import { useState } from 'react';
-import { motion } from 'framer-motion';
 
 export function Contact() {
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
