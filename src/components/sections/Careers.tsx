@@ -1,26 +1,31 @@
 // src/components/sections/Careers.tsx
+import { useState } from 'react';
 import { Container } from '../layout/Container';
 import { FadeIn } from '../ui/FadeIn';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const openRoles = [
   {
+    id: 'bizdev',
     title: 'Business Development Lead',
-    type: 'Contract / Outsource',
+    type: 'Equity & Profit-Share',
     location: 'Remote / Nairobi',
-    description: 'Drive growth for our client engineering services and B2B SaaS ventures. You will be responsible for identifying high-value partnerships, managing inbound leads, and closing contracts with businesses that need production-grade architecture.',
-    mailto: 'hello@infralabs.dev?subject=Application:%20Business%20Development%20Lead'
+    description: 'You will own lead sourcing, CRM management, and closing Paid Discovery deals. There is no base salary. Compensation is a 15% cut of gross revenue for every deal you close, plus equity from a 20% Operator Pool vesting over 4 years with a 1-year cliff.',
+    instructions: 'Send an email to contact@infralabsvs.co.ke with the exact subject line "BizDev Partner: [Your Name]". Include your LinkedIn URL, a strict 1-paragraph pitch on why your execution style fits the studio model, and absolutely zero generic cover letters.'
   },
   {
-    title: 'UI/UX Designer',
-    type: 'Contract / Outsource',
+    id: 'uiux',
+    title: 'UI/UX Product Designer',
+    type: 'Equity & Profit-Share',
     location: 'Remote',
-    description: 'Shape the visual language and user experience of our internal SaaS products and client platforms. We are looking for a designer obsessed with clean typography, intuitive user flows, and modern aesthetics (like the glassmorphism you see here).',
-    mailto: 'hello@infralabs.dev?subject=Application:%20UI/UX%20Designer'
+    description: 'You will deliver client scopes and Figma prototypes under a strict 48-hour SLA. There is no base salary. Compensation is drawn dynamically from a 55% Execution Pool based on project delivery, plus equity from a 20% Operator Pool vesting over 4 years with a 1-year cliff.',
+    instructions: 'Send an email to contact@infralabsvs.co.ke with the exact subject line "UI/UX Partner: [Your Name]". Include a link to your live portfolio, a brief breakdown of your handoff process to developers, and absolutely zero generic cover letters.'
   }
 ];
 
 export function Careers() {
+  const [activeRole, setActiveRole] = useState<string | null>(null);
+
   return (
     <section id="careers" className="py-24 border-t border-white/10 relative overflow-hidden">
       
@@ -45,17 +50,17 @@ export function Careers() {
               </h2>
             </div>
             <p className="text-white/50 text-sm md:text-right max-w-xs">
-              We are currently looking for specialized partners to help expand our operations and product design.
+              We are currently looking for founding partners to take ownership of our growth and product design.
             </p>
           </div>
         </FadeIn>
 
         <div className="grid md:grid-cols-2 gap-8">
           {openRoles.map((role, i) => (
-            <FadeIn key={role.title} delay={i * 0.15}>
+            <FadeIn key={role.id} delay={i * 0.15}>
               <motion.div
-                whileHover={{ y: -4 }}
-                className="group relative border border-white/10 rounded-xl p-8 bg-white/[0.04] backdrop-blur-2xl overflow-hidden transition-all duration-300 hover:bg-white/[0.08] hover:border-teal/40 hover:shadow-[0_0_30px_rgba(29,158,117,0.15)] flex flex-col h-full"
+                whileHover={{ y: activeRole === role.id ? 0 : -4 }}
+                className="group relative border border-white/10 rounded-xl p-8 bg-white/[0.04] backdrop-blur-2xl overflow-hidden transition-all duration-300 hover:bg-white/[0.08] hover:border-teal/40 hover:shadow-[0_0_30px_rgba(29,158,117,0.15)] flex flex-col h-full min-h-[320px]"
               >
                 {/* Accent Line */}
                 <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-teal to-emerald-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -75,17 +80,46 @@ export function Careers() {
                   </span>
                 </div>
                 
-                <p className="text-white/60 text-sm leading-relaxed flex-1 mb-8">
-                  {role.description}
-                </p>
+                {/* Dynamic Content Area */}
+                <div className="flex-1 relative">
+                  <AnimatePresence mode="wait">
+                    {activeRole === role.id ? (
+                      <motion.div
+                        key="instructions"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.2 }}
+                        className="text-white text-sm leading-relaxed"
+                      >
+                        <p className="font-medium text-teal mb-2">Application Instructions:</p>
+                        <p className="text-white/80">{role.instructions}</p>
+                      </motion.div>
+                    ) : (
+                      <motion.div
+                        key="description"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.2 }}
+                        className="text-white/60 text-sm leading-relaxed"
+                      >
+                        {role.description}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
 
-                <a 
-                  href={role.mailto}
-                  className="mt-auto inline-flex items-center gap-2 text-sm font-medium text-white hover:text-teal transition-colors w-fit border border-white/10 hover:border-teal/50 rounded-lg px-5 py-2.5 bg-white/[0.02] hover:bg-teal/10"
+                {/* Toggle Button */}
+                <button 
+                  onClick={() => setActiveRole(activeRole === role.id ? null : role.id)}
+                  className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-white hover:text-teal transition-colors w-fit border border-white/10 hover:border-teal/50 rounded-lg px-5 py-2.5 bg-white/[0.02] hover:bg-teal/10"
                 >
-                  Apply via Email
-                  <span className="group-hover:translate-x-1 transition-transform">→</span>
-                </a>
+                  {activeRole === role.id ? '← Back to details' : 'View Application Instructions'}
+                  {!activeRole || activeRole !== role.id ? (
+                    <span className="group-hover:translate-x-1 transition-transform">→</span>
+                  ) : null}
+                </button>
               </motion.div>
             </FadeIn>
           ))}
