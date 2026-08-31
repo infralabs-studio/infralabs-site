@@ -10,6 +10,7 @@ import { HowWeWork } from './components/sections/HowWeWork';
 import { StudioModel } from './components/sections/StudioModel';
 import { Contact } from './components/sections/Contact';
 import { SplashScreen } from './components/brand/SplashScreen';
+import { Careers } from './components/sections/Careers';
 
 export default function App() {
   const [showSplash, setShowSplash] = useState(true);
@@ -34,6 +35,7 @@ export default function App() {
         <ProofOfWork />
         <HowWeWork />
         <StudioModel />
+        <Careers />
         <Contact />
       </main>
       <Footer />
